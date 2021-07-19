@@ -90,6 +90,7 @@ func CopyObjectWithForbidOverwriteSample() {
 	output, err := sc.CopyObjectWithForbidOverwrite(descBucketName, bucketName+"/"+objectKey, descObjectKey, true)
 	if err == nil {
 		fmt.Println("output:",output)
+	} else {
 		HandleError(err)
 	}
 	fmt.Println("Forbid overwrite Success!", err)

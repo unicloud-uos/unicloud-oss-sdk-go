@@ -98,7 +98,7 @@ func BucketLifecycleSample() {
 					Prefix: aws.String("test/"),
 				},
 				ID:     aws.String("id5"),
-				Status: aws.String("Disable"),
+				Status: aws.String("Disabled"),
 				NoncurrentVersionTransitions: []*s3.NoncurrentVersionTransition{
 					{
 						NoncurrentDays: aws.Int64(30),

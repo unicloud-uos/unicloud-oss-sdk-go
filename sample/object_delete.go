@@ -45,6 +45,15 @@ func DeleteObjectSample() {
 		HandleError(err)
 	}
 
+	err = sc.DeleteObject(bucketName, objectKey+"1")
+	if err != nil {
+		HandleError(err)
+	}
+
+	err = sc.DeleteObject(bucketName, objectKey+"2")
+	if err != nil {
+		HandleError(err)
+	}
 
 	fmt.Printf("DeleteObjectSample Run Success !\n\n")
 }

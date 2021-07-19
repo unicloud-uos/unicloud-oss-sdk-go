@@ -34,7 +34,6 @@ func main() {
 
 	//sample.CopyObjectSample()
 	//sample.CopyObjectWithForbidOverwriteSample()
-	//sample.ArchiveSample()
 	//sample.MySample()
 
 	fmt.Println("All samples completed !")

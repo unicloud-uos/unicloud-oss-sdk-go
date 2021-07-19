@@ -72,7 +72,7 @@ func PutObjectWithForbidOverwrite() {
 
 	//set forbid overwrite
 	_, err = sc.PutObjectWithForbidOverwrite(bucketName, objectKey, strings.NewReader("OverwriteValue"), true)
-	if err == nil {
+	if err != nil {
 		HandleError(err)
 	}
 	out, err = sc.GetObject(bucketName, objectKey)
