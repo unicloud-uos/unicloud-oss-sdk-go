@@ -37,7 +37,7 @@ func ListObjectsSample() {
 		}
 	}
 
-	keys, _, _, err = sc.ListObjects(bucketName, objectKey+"/", "/", 1000)
+	_, _, _, err = sc.ListObjects(bucketName, objectKey+"/", "/", 1000)
 	if err != nil {
 		HandleError(err)
 	}

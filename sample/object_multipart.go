@@ -94,6 +94,12 @@ func MultiPartUploadSampleWithForbidOverwrite() {
 	uploadId, err = sc.CreateMultiPartUploadWithForbidOverwrite(bucketName, objectKey, s3.ObjectStorageClassStandard, true)
 	if err == nil {
 		fmt.Println("forbid overwrite success:", err)
+	} else {
+		HandleError(err)
+	}
+	err = sc.AbortMultiPartUpload(bucketName, objectKey, uploadId)
+	if err != nil {
+		HandleError(err)
 	}
 
 	// overwrite
