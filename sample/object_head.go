@@ -2,37 +2,37 @@ package sample
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 )
 
-func BucketRefererSample() {
+func HeadObjectSample() {
 	DeleteTestBucketAndObject()
 	defer DeleteTestBucketAndObject()
 	sc := s3lib.NewS3(endpoint, accessKey, secretKey)
+	// Create a bucket
 	err := sc.MakeBucket(bucketName)
 	if err != nil {
 		HandleError(err)
 	}
 
-	var referers = []string{
-		"http://www.unicloud.com",
+	// Put a file
+	f, err := os.Open(localFilePath)
+	defer f.Close()
+	if err != nil {
+		HandleError(err)
 	}
-
-	err = sc.SetReferer(bucketName, referers)
+	err = sc.PutObject(bucketName, objectKey, f)
 	if err != nil {
 		HandleError(err)
 	}
 
-	r, err := sc.GetReferer(bucketName)
-	fmt.Println(r)
-
-	err = sc.SetReferer(bucketName, []string{})
+	out, err := sc.HeadObject(bucketName, objectKey)
 	if err != nil {
 		HandleError(err)
 	}
+	fmt.Println("HeadObject result: ", out)
 
-	r2, err := sc.GetReferer(bucketName)
-	fmt.Println(r2)
-
-	fmt.Printf("BucketRefererSample Run Success !\n\n")
+	fmt.Printf("HeadObjectSample Run Success !\n\n")
 }

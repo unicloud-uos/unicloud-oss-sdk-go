@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"crypto/md5"
 	"encoding/base64"
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 	"io/ioutil"
 )
 

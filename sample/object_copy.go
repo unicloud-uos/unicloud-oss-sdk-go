@@ -1,8 +1,9 @@
 package sample
 
 import (
+	"errors"
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 	"io/ioutil"
 	"strings"
 )
@@ -25,7 +26,7 @@ func CopyObjectSample() {
 	}
 
 	// 1. Put a string object
-	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("CopyObjectSample"))
 	if err != nil {
 		HandleError(err)
 	}
@@ -75,7 +76,7 @@ func CopyObjectWithForbidOverwriteSample() {
 		HandleError(err)
 	}
 
-	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("CopyObjectWithForbidOverwriteSample"))
 	if err != nil {
 		HandleError(err)
 	}
@@ -89,9 +90,7 @@ func CopyObjectWithForbidOverwriteSample() {
 
 	output, err := sc.CopyObjectWithForbidOverwrite(descBucketName, bucketName+"/"+objectKey, descObjectKey, true)
 	if err == nil {
-		fmt.Println("output:",output)
-	} else {
-		HandleError(err)
+		HandleError(errors.New("should be error"))
 	}
 	fmt.Println("Forbid overwrite Success!", err)
 

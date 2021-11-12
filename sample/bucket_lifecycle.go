@@ -2,9 +2,9 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 	"time"
 )
 
@@ -109,7 +109,7 @@ func BucketLifecycleSample() {
 		},
 	}
 
-	err = sc.PutBucketLifecycle(bucketName,lifecycle)
+	err = sc.PutBucketLifecycle(bucketName, lifecycle)
 	if err != nil {
 		HandleError(err)
 	}
@@ -125,7 +125,6 @@ func BucketLifecycleSample() {
 		HandleError(err)
 	}
 	fmt.Println("Delete Bucket LifecycleConfiguration", out)
-
 
 	fmt.Printf("BucketLifecycleSample Run Success !\n\n")
 }

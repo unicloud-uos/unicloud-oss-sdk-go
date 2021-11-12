@@ -2,9 +2,9 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 func BucketEncryptionSample() {
@@ -27,7 +27,7 @@ func BucketEncryptionSample() {
 		},
 	}
 
-	err = sc.PutBucketEncryption(bucketName,encryption)
+	err = sc.PutBucketEncryption(bucketName, encryption)
 	if err != nil {
 		HandleError(err)
 	}

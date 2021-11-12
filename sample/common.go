@@ -2,7 +2,7 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 	"os"
 )
 

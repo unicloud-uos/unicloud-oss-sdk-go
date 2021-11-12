@@ -1,8 +1,8 @@
 package s3lib
 
 import (
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 func (s3client *S3Client) PutBucketLifecycle(bucketName string, config *s3.BucketLifecycleConfiguration) (err error) {

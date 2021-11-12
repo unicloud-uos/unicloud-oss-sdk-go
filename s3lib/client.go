@@ -1,10 +1,10 @@
 package s3lib
 
 import (
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/aws/credentials"
-	"github.com/journeymidnight/aws-sdk-go/aws/session"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/aws/credentials"
+	"github.com/unicloud-uos/uos-sdk-go/aws/session"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 type S3Client struct {

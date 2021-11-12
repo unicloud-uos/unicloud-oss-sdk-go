@@ -2,9 +2,12 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
 	"io/ioutil"
+	"os"
 	"strings"
+
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
 )
 
 func AppendObjectSample() {
@@ -31,11 +34,45 @@ func AppendObjectSample() {
 	b, _ := ioutil.ReadAll(out)
 	fmt.Println("Get appended string:", string(b))
 	out.Close()
-	// TODO 2. Append files to an object
 
-	// TODO 3. Get Next Append Position
+	// Append files to an object
+	strs = []string{"sample/L.jpeg", "sample/L.jpeg", "sample/L.jpeg"}
+	for _, s := range strs {
+		fmt.Println("Append file:", s)
+		f, err := os.Open(s)
+		defer f.Close()
+		if err != nil {
+			HandleError(err)
+		}
+		nextPos, err = sc.AppendObject(bucketName, objectKey, f, nextPos)
+		if err != nil {
+			HandleError(err)
+		}
 
-	// TODO 4. Append With ACL And Meta
+	}
+	out, err = sc.GetObject(bucketName, objectKey)
+	if err != nil {
+		HandleError(err)
+	}
+	out.Close()
+
+	// Append With ACL And Meta
+	strs = []string{"yig1", "yig2", "yig3"}
+	c := make(map[string]*string)
+	c["a"] = aws.String("b")
+	for _, s := range strs {
+		fmt.Println("Append String:", s)
+		nextPos, err = sc.AppendObjectWithAclAndMeta(bucketName, objectKey, strings.NewReader(s), nextPos, "public-read", c)
+		if err != nil {
+			HandleError(err)
+		}
+	}
+	out, err = sc.GetObject(bucketName, objectKey)
+	out.Close()
+
+	b, _ = ioutil.ReadAll(out)
+	fmt.Println("Get appended string:", string(b))
+	out.Close()
 
 	fmt.Printf("AppendObjectSample Run Success !\n\n")
 }

@@ -1,7 +1,6 @@
 package sample
 
-func MySample() {
+func CleanEnv() {
 	DeleteTestBucketAndObject()
 	defer DeleteTestBucketAndObject()
-
 }

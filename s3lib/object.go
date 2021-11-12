@@ -2,10 +2,11 @@ package s3lib
 
 import (
 	"fmt"
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
 	"io"
 	"time"
+
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 func (s3client *S3Client) PutObject(bucketName, key string, value io.Reader) (err error) {
@@ -13,6 +14,19 @@ func (s3client *S3Client) PutObject(bucketName, key string, value io.Reader) (er
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(key),
 		Body:   aws.ReadSeekCloser(value),
+	}
+	if _, err = s3client.Client.PutObject(params); err != nil {
+		return err
+	}
+	return
+}
+
+func (s3client *S3Client) PutObjectWithMeta(bucketName, key string, value io.Reader, meta map[string]*string) (err error) {
+	params := &s3.PutObjectInput{
+		Bucket:   aws.String(bucketName),
+		Key:      aws.String(key),
+		Body:     aws.ReadSeekCloser(value),
+		Metadata: meta,
 	}
 	if _, err = s3client.Client.PutObject(params); err != nil {
 		return err
@@ -49,14 +63,14 @@ func (s3client *S3Client) PutObjectPreSignedWithoutSpecifiedBody(bucketName, key
 	return req.Presign(expire)
 }
 
-func (s3client *S3Client) HeadObject(bucketName, key string) (err error) {
+func (s3client *S3Client) HeadObject(bucketName, key string) (out *s3.HeadObjectOutput, err error) {
 	params := &s3.HeadObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(key),
 	}
-	_, err = s3client.Client.HeadObject(params)
+	out, err = s3client.Client.HeadObject(params)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	return
 }
@@ -71,6 +85,19 @@ func (s3client *S3Client) GetObject(bucketName, key string) (value io.ReadCloser
 		return nil, err
 	}
 	return out.Body, err
+}
+
+func (s3client *S3Client) GetObjectWithRange(bucketName, key, Range string) (out *s3.GetObjectOutput, err error) {
+	params := &s3.GetObjectInput{
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(key),
+		Range:  aws.String(Range),
+	}
+	out, err = s3client.Client.GetObject(params)
+	if err != nil {
+		return
+	}
+	return out, err
 }
 
 func (s3client *S3Client) GetObjectPreSigned(bucketName, key string, expire time.Duration) (url string, err error) {
@@ -131,7 +158,7 @@ func (s3client *S3Client) CopyObject(bucketName, sourceObject, newName string) (
 	return
 }
 
-func (s3client *S3Client) CopyObjectWithForbidOverwrite(bucketName, sourceObject, newName string, forbidOverwrite bool) (out *s3.CopyObjectOutput,err error) {
+func (s3client *S3Client) CopyObjectWithForbidOverwrite(bucketName, sourceObject, newName string, forbidOverwrite bool) (out *s3.CopyObjectOutput, err error) {
 	params := &s3.CopyObjectInput{
 		Bucket:          aws.String(bucketName),
 		CopySource:      aws.String(sourceObject),
@@ -148,6 +175,23 @@ func (s3client *S3Client) AppendObject(bucketName, key string, value io.ReadSeek
 		Key:      aws.String(key),
 		Body:     value,
 		Position: aws.Int64(position),
+	}
+	if out, err = s3client.Client.AppendObject(params); err != nil {
+		return 0, err
+	}
+
+	return *out.NextPosition, nil
+}
+
+func (s3client *S3Client) AppendObjectWithAclAndMeta(bucketName, key string, value io.ReadSeeker, position int64, acl string, meta map[string]*string) (nextPos int64, err error) {
+	var out *s3.AppendObjectOutput
+	params := &s3.AppendObjectInput{
+		Bucket:   aws.String(bucketName),
+		Key:      aws.String(key),
+		Body:     value,
+		Position: aws.Int64(position),
+		ACL:      aws.String(acl),
+		Metadata: meta,
 	}
 	if out, err = s3client.Client.AppendObject(params); err != nil {
 		return 0, err

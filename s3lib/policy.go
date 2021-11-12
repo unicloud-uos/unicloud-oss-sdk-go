@@ -1,14 +1,15 @@
 package s3lib
 
 import (
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
-	"strings"
-	"github.com/journeymidnight/yig/api/datatype/policy"
-	"github.com/journeymidnight/yig/api/datatype/policy/condition"
-	"fmt"
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"strings"
+
+	"github.com/journeymidnight/yig/api/datatype/policy"
+	"github.com/journeymidnight/yig/api/datatype/policy/condition"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 func newPolicyWithStatement(s ...policy.Statement) (p *policy.Policy) {
@@ -128,8 +129,8 @@ func (s3client *S3Client) GetReferer(bucketName string) (referers []string, err 
 	for _, s := range p.Statements {
 		if s.SID == "Referer" {
 			var referers []string
-			for _,r := range s.Conditions {
-				referers = append(referers, strings.Replace(r.String(), "StringLike:aws:Referer:","", -1)[1:len(r.String())-24])
+			for _, r := range s.Conditions {
+				referers = append(referers, strings.Replace(r.String(), "StringLike:aws:Referer:", "", -1)[1:len(r.String())-24])
 			}
 			return referers, nil
 		}

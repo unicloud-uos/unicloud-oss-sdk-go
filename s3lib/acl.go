@@ -1,8 +1,8 @@
 package s3lib
 
 import (
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 const (
@@ -29,9 +29,6 @@ const (
 
 	// ObjectCannedACLAuthenticatedRead is a ObjectCannedACL enum value
 	ObjectCannedACLAuthenticatedRead = "authenticated-read"
-
-	// ObjectCannedACLAwsExecRead is a ObjectCannedACL enum value
-	ObjectCannedACLAwsExecRead = "aws-exec-read"
 
 	// ObjectCannedACLBucketOwnerRead is a ObjectCannedACL enum value
 	ObjectCannedACLBucketOwnerRead = "bucket-owner-read"

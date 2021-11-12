@@ -2,7 +2,9 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
+
+	"github.com/journeymidnight/yig/test/go/lib"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 )
 
 func BucketACLSample() {
@@ -15,7 +17,10 @@ func BucketACLSample() {
 		HandleError(err)
 	}
 
-	// TODO : Surport Set Bucket CannedACL 'PublicRead'
+	err = sc.PutBucketAcl(bucketName, lib.ObjectCannedACLPublicRead)
+	if err != nil {
+		HandleError(err)
+	}
 
 	out, err := sc.GetBucketAcl(bucketName)
 	if err != nil {

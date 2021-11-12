@@ -1,11 +1,13 @@
 package sample
 
 import (
+	"errors"
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 )
 
 func PutObjectSample() {
@@ -19,7 +21,7 @@ func PutObjectSample() {
 	}
 
 	// 1. Put a string object
-	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("PutObjectSample"))
 	if err != nil {
 		HandleError(err)
 	}
@@ -59,7 +61,7 @@ func PutObjectWithForbidOverwrite() {
 		HandleError(err)
 	}
 
-	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("PutObjectWithForbidOverwrite"))
 	if err != nil {
 		HandleError(err)
 	}
@@ -72,9 +74,10 @@ func PutObjectWithForbidOverwrite() {
 
 	//set forbid overwrite
 	_, err = sc.PutObjectWithForbidOverwrite(bucketName, objectKey, strings.NewReader("OverwriteValue"), true)
-	if err != nil {
-		HandleError(err)
+	if err == nil {
+		HandleError(errors.New("should be error"))
 	}
+
 	out, err = sc.GetObject(bucketName, objectKey)
 	if err != nil {
 		HandleError(err)

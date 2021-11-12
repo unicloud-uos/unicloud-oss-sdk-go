@@ -1,14 +1,15 @@
 package s3lib
 
 import (
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
-	"github.com/journeymidnight/yig/api/datatype"
 	"os"
+
+	"github.com/journeymidnight/yig/api/datatype"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
-func (sc *S3Client) GenTestObjectUrl(bucketName, objectKey string) string {
-	return "http://" + *sc.Client.Config.Endpoint + string(os.PathSeparator) + bucketName + string(os.PathSeparator) + objectKey
+func (s3client *S3Client) GenTestObjectUrl(bucketName, objectKey string) string {
+	return "http://" + *s3client.Client.Config.Endpoint + string(os.PathSeparator) + bucketName + string(os.PathSeparator) + objectKey
 }
 
 func TransferToS3AccessControlPolicy(policy *datatype.AccessControlPolicy) (s3policy *s3.AccessControlPolicy) {

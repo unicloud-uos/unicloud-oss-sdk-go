@@ -2,7 +2,7 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 )
 
 func PutEncryptObjectWithSSECSample() {
@@ -23,7 +23,7 @@ func PutEncryptObjectWithSSECSample() {
 	if err != nil {
 		HandleError(err)
 	}
-	fmt.Println("GetEncryptObjectWithSSEC:",v)
+	fmt.Println("GetEncryptObjectWithSSEC:", v)
 
 	fmt.Printf("PutEncryptObjectWithSSECSample Run Success !\n\n")
 }
@@ -47,7 +47,7 @@ func PutEncryptObjectWithSSES3Sample() {
 	if err != nil {
 		HandleError(err)
 	}
-	fmt.Println("GetEncryptObjectWithSSES3:",v)
+	fmt.Println("GetEncryptObjectWithSSES3:", v)
 
 	fmt.Printf("PutEncryptObjectWithSSES3ample Run Success !\n\n")
 }

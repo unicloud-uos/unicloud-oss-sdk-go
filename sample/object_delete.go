@@ -2,7 +2,7 @@ package sample
 
 import (
 	"fmt"
-	"github.com/journeymidnight/Yig-S3-SDK-Go/s3lib"
+	"github.com/unicloud-uos/unicloud-oss-sdk-samples-go/s3lib"
 	"strings"
 )
 
@@ -18,7 +18,7 @@ func DeleteObjectSample() {
 	}
 
 	// 1. Delete an object
-	err = sc.PutObject(bucketName, objectKey, strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey, strings.NewReader("DeleteObjectSample"))
 	if err != nil {
 		HandleError(err)
 	}
@@ -35,25 +35,21 @@ func DeleteObjectSample() {
 	}
 
 	// 2. Delete multiple objects
-	err = sc.PutObject(bucketName, objectKey+"1", strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey+"1", strings.NewReader("DeleteObjectSample"))
 	if err != nil {
 		HandleError(err)
 	}
 
-	err = sc.PutObject(bucketName, objectKey+"2", strings.NewReader("NewBucketAndObjectSample"))
+	err = sc.PutObject(bucketName, objectKey+"2", strings.NewReader("DeleteObjectSample"))
 	if err != nil {
 		HandleError(err)
 	}
 
-	err = sc.DeleteObject(bucketName, objectKey+"1")
+	keys, err := sc.DeleteObjects(bucketName, objectKey+"1", objectKey+"2")
 	if err != nil {
 		HandleError(err)
 	}
-
-	err = sc.DeleteObject(bucketName, objectKey+"2")
-	if err != nil {
-		HandleError(err)
-	}
+	fmt.Println("Delete keys: ", keys)
 
 	fmt.Printf("DeleteObjectSample Run Success !\n\n")
 }

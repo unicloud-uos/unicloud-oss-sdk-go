@@ -2,8 +2,8 @@ package s3lib
 
 import (
 	"bytes"
-	"github.com/journeymidnight/aws-sdk-go/aws"
-	"github.com/journeymidnight/aws-sdk-go/service/s3"
+	"github.com/unicloud-uos/uos-sdk-go/aws"
+	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
 func (s3client *S3Client) CreateMultiPartUpload(bucketName, key, storageClass string) (uploadId string, err error) {
@@ -70,4 +70,3 @@ func (s3client *S3Client) AbortMultiPartUpload(bucketName, key, uploadId string)
 	_, err = s3client.Client.AbortMultipartUpload(params)
 	return
 }
-
