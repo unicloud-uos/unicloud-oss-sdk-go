@@ -18,6 +18,7 @@ func main() {
 	sample.BucketLoggingSample()
 	sample.BucketCORSSample()
 	sample.BucketEncryptionSample()
+	sample.BucketWebsiteSample()
 
 	sample.HeadObjectSample()
 	sample.PutObjectSample()

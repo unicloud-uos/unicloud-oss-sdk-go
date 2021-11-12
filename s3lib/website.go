@@ -5,15 +5,15 @@ import (
 	"github.com/unicloud-uos/uos-sdk-go/service/s3"
 )
 
-func (s3client *S3Client) PutBucketWebsite(bucketName string) error {
+func (s3client *S3Client) PutBucketWebsite(bucketName string, indexDocument, errorDocument string) error {
 	params := &s3.PutBucketWebsiteInput{
 		Bucket: aws.String(bucketName),
 		WebsiteConfiguration: &s3.WebsiteConfiguration{
 			IndexDocument: &s3.IndexDocument{
-				Suffix: aws.String("index.html"),
+				Suffix: aws.String(indexDocument),
 			},
 			ErrorDocument: &s3.ErrorDocument{
-				Key: aws.String("error.html"),
+				Key: aws.String(errorDocument),
 			},
 		},
 	}
